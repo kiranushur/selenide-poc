@@ -2,3 +2,4 @@
 selenide/target/
 selenide/build/
 selenide/selenide.iml
+selenide/src/test/resources/dynamicdata/

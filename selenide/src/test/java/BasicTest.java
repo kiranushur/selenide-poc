@@ -70,8 +70,7 @@ public class BasicTest {
 
   @Test (groups = "Login")
   public void fileDownloadOperationsTest() throws FileNotFoundException {
-    Configuration.downloadsFolder = "C:\\Desktop_Files\\All_Repositories\\selenide_poc\\selenide\\src\\test\\resources";
-
+    Configuration.downloadsFolder = "src/test/resources/dynamicdata/";
     $(By.cssSelector(".form-control.app-context")).shouldBe(Condition.visible, Duration.ofSeconds(30));
     $(By.cssSelector(".form-control.app-context")).selectOption("TestAutomation");
     $(By.id("l-meta-data")).click();
