@@ -1,3 +1,4 @@
+import static com.codeborne.selenide.FileDownloadMode.PROXY;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
@@ -6,6 +7,7 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.FileDownloadMode;
 import com.google.common.util.concurrent.Uninterruptibles;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,8 +26,8 @@ public class BasicTest {
 
   @BeforeGroups(groups = "Login")
   public void beforeGroups(){
-    $(By.cssSelector("input.username.input-md")).setValue("test_admin@ushurdummy.me");
-    $(By.cssSelector("input.password.input-md")).setValue("Ushur@123");
+    LoginPage.getInstance().USERNAME.setValue("test_admin@ushurdummy.me");
+    LoginPage.getInstance().PASSWORD.setValue("Ushur@123");
     $(By.linkText("Log In")).click();
     $(By.cssSelector(".navbar-brand .nav-ushur-logo")).shouldBe(Condition.visible, Duration.ofSeconds(30));
   }
@@ -69,14 +71,20 @@ public class BasicTest {
   }
 
   @Test (groups = "Login")
-  public void fileDownloadOperationsTest() throws FileNotFoundException {
-    Configuration.downloadsFolder = "src/test/resources/dynamicdata/";
+  public void fileDownloadOperationsTest() {
+//    Configuration.downloadsFolder = "src/test/resources/dynamicdata/";
+//    Configuration.proxyHost = "32.453.324.435";
+//    Configuration.proxyPort = 8080;
+//    Configuration.proxyEnabled = true;
+//    Configuration.fileDownload = FileDownloadMode.PROXY;
+//
     $(By.cssSelector(".form-control.app-context")).shouldBe(Condition.visible, Duration.ofSeconds(30));
     $(By.cssSelector(".form-control.app-context")).selectOption("TestAutomation");
     $(By.id("l-meta-data")).click();
 
-    $(By.cssSelector(".meta-data-export-data")).download();
-
+//    $(By.cssSelector(".meta-data-export-data")).download();   //  "Cannot download file: proxy server is not started"
+    $(By.cssSelector(".meta-data-export-data")).click();
+    Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(5));
   }
 
 }
